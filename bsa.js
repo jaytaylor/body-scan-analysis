@@ -103,6 +103,10 @@ $(document).ready(function() {
                 if (null === foundTile &&
                     x < xLine && x >= xAxis[xAxis.indexOf(xLine) - 1] &&
                     y < yLine && y >= yAxis[yAxis.indexOf(yLine) - 1]) {
+                    // Don't want disabled tiles.
+                    if (-1 !== img.data.disabledTileIds.indexOf(tileId)) {
+                        tileId = null;
+                    }
                     return tileId;
                 }
             }
@@ -174,35 +178,32 @@ $(document).ready(function() {
     fgContext.stroke();
 
 
-    var CanvasMouse = (function() {
+    var CanvasMouse = (function(img, undefined) {
         $('#content').append('<div id="coordinates"></div>');
-        var _canvasOffset = $('canvas').offset();
-        var _x;
-        var _y;
-        var _canvas = $('.fg')[0];
-        var _context = _canvas.getContext('2d');
-        var _tileId, _box;
+
+        var _canvasOffset = $('canvas').offset(),
+            _x,
+            _y,
+            _canvas = $('.fg')[0],
+            _context = _canvas.getContext('2d'),
+            _lastTileId,
+            _box;
+
         $('canvas').mousemove(function(e) {
             _x = e.pageX - _canvasOffset.left;
             _y = e.pageY - _canvasOffset.top;
             //_box = null;
             var tileId = img.coordsToTileId(_x, _y);
-            if (null !== tileId && _tileId !== tileId) {
+            if (null !== tileId && _lastTileId !== tileId) {
                 //_canvas.width = _canvas.width; // Reset canvas contents.
                 _box = img.tileIdToBox(tileId);
             }
-            _tileId = tileId;
+            _lastTileId = tileId;
 
-            /*_context.strokeStyle = "#000000";
-            _context.fillStyle = "#FFFF00";
-            _context.beginPath();
-            _context.arc(_x,_y,10,0,Math.PI*2,true);
-            _context.closePath();
-            _context.stroke();
-            _context.fill();*/
-            var tileStr = null !== _tileId ? ', tileId=' + _tileId : '';
+            var tileStr = null !== _lastTileId ? ', tileId=' + _lastTileId : '';
             $('#coordinates').html(_x + ', ' + _y + ' px' + tileStr);
         });
+
         return {
             canvas: function() {
                 return _canvas;
@@ -211,13 +212,13 @@ $(document).ready(function() {
                 return _box;
             },
             getTileId: function() {
-                return _tileId;
+                return _lastTileId;
             },
             getLastCoordinates: function() {
                 return [_x, _y];
             }
         };
-    })();
+    })(img);
 
     CanvasMouse.canvas().addEventListener('click', tileClick, false);
 
