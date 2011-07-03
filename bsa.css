@@ -1,0 +1,46 @@
+
+html body {
+}
+
+#content {
+    position:absolute;
+    top:520px;
+    
+}
+
+/*#canvasLayer0, #canvasLayer1, #canvasLayer2 {
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+
+#canvasLayer0 {
+    z-index:0;
+};
+
+#canvasLayer1 {
+    z-index:1;
+};
+
+#canvasLayer2 {
+    z-index:2;
+};*/
+.layer {
+    position:absolute;
+    left:0;
+    top:0;
+}
+
+#canvasLayer0 {
+    z-index:0;
+};
+
+#canvasLayer1 {
+    z-index:1;
+};
+
+#canvasLayer2 {
+    z-index:2;
+};
+
