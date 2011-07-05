@@ -263,11 +263,11 @@ $(document).ready(function() {
     var fgContext = fgCanvas.getContext('2d');
 
     var imageLocations = [
-        "childFront.png",
-        "childFront-1.png",
-        "childFront-2.png",
-        "childFront-3.png",
-        "childFront-4.png"
+        "images/childFront-0.png",
+        "images/childFront-1.png",
+        "images/childFront-2.png",
+        "images/childFront-3.png",
+        "images/childFront-4.png"
     ];
 	var img = new BSAImage(imageLocations, data);
 
