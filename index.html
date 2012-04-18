@@ -5,17 +5,22 @@
     </head>
     <body>
 
-        <canvas id="canvasLayer0" class="layer bg" width="700" height="500">
-        </canvas>
+        <div id="outermostContainer">
+            <div id="canvasContainer">
+                <canvas id="canvasLayer0" class="layer bg" width="700" height="500">
+                </canvas>
 
-        <canvas id="canvasLayer1" class="layer phase-1" width="700" height="500">
-        </canvas>
+                <canvas id="canvasLayer1" class="layer phase-1" width="700" height="500">
+                </canvas>
 
-        <canvas id="canvasLayer2" class="layer fg" width="700" height="500">
-            <p>Your browser doesn't support canvas.</p>
-        </canvas>
+                <canvas id="canvasLayer2" class="layer fg" width="700" height="500">
+                    <p>Your browser doesn't support canvas.</p>
+                </canvas>
+            </div>
+            <div id="infoBox"></div>
+            <div id="content"></div>
+        </div>
 
-        <div id="content"></div>
         <!--<div><img src="viewer.png" /></div>-->
 
         <script type="text/javascript" src="javascript/jquery/1.6.1/jquery.min.js"></script>

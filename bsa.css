@@ -2,10 +2,22 @@
 html body {
 }
 
+#outermostContainer {
+
+}
+
 #content {
     position:absolute;
     top:520px;
     
+}
+
+#infoBox {
+    margin-left:200px;
+}
+
+#status {
+    font-weight:bolder;
 }
 
 /*#canvasLayer0, #canvasLayer1, #canvasLayer2 {
