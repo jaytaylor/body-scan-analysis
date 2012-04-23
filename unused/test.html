@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            body {
+                margin: 0px;
+                padding: 0px;
+            }
+            
+            #myCanvas {
+                border: 1px solid #9C9898;
+            }
+        </style>
+        <script src="http://www.html5canvastutorials.com/libraries/kinetic-v1.0.2.js">
+        </script>
+        <script>
+            
+            var canvas = null;
+            var context = null;
+            var message = "";
+            var images = {};
+            
+            function loadImages(sources, callback){
+                var loadedImages = 0;
+                var numImages = 0;
+                for (var src in sources) {
+                    numImages++;
+                    images[src] = new Image();
+                    images[src].onload = function(){
+                        if (++loadedImages >= numImages) {
+                            callback();
+                        }
+                    };
+                    images[src].src = sources[src];
+                }
+            }
+            
+            function writeMessage(){
+                context.font = "18pt Calibri";
+                context.fillStyle = "black";
+                context.fillText(message, 10, 25);
+            }
+            
+            function drawImages(){
+                var myStage = new Kinetic.Stage(canvas);
+                
+                myStage.setDrawStage(function(){
+                
+                    // draw darth vader image and attach listeners
+                    myStage.beginRegion();
+                    context.drawImage(images.darthVader, 100, 50, images.darthVader.width, images.darthVader.height);
+                    // draw rectangular region for image
+                    context.beginPath();
+                    context.rect(100, 50, images.darthVader.width, images.darthVader.height);
+                    context.closePath();
+                    
+                    myStage.addRegionEventListener("onmouseover", function(){
+                        message = "Darth Vader mouseover!";
+                    });
+                    myStage.addRegionEventListener("onmouseout", function(){
+                        message = "Darth Vader mouseout!";
+                    });
+                    myStage.addRegionEventListener("onmousedown", function(){
+                        message = "Darth Vader mousedown!";
+                    });
+                    myStage.addRegionEventListener("onmouseup", function(){
+                        message = "Darth Vader mouseup!";
+                    });
+                    myStage.closeRegion();
+                    
+                    // draw yoda image and attach listeners
+                    myStage.beginRegion();
+                    context.drawImage(images.yoda, 350, 75, images.yoda.width, images.yoda.height);
+                    // draw rectangular region for image
+                    context.beginPath();
+                    context.rect(350, 75, 93, 104);
+                    context.closePath();
+                    
+                    myStage.addRegionEventListener("onmouseover", function(){
+                        message = "Yoda mouseover!";
+                    });
+                    myStage.addRegionEventListener("onmouseout", function(){
+                        message = "Yoda mouseout!";
+                    });
+                    myStage.addRegionEventListener("onmousedown", function(){
+                        message = "Yoda mousedown!";
+                    });
+                    myStage.addRegionEventListener("onmouseup", function(){
+                        message = "Yoda mouseup!";
+                    });
+                    myStage.closeRegion();
+                    
+                    writeMessage();
+                });
+            }
+            
+            window.onload = function(){
+                canvas = document.getElementById("myCanvas");
+                context = canvas.getContext("2d");
+                message = "Mouseover an image...";
+                
+                var sources = {
+                    darthVader: "images/childFront-0.png",//darth-vader.jpg",
+                    yoda: "yoda.jpg"
+                };
+                
+                loadImages(sources, function(){
+                    drawImages();
+                });
+            };
+        </script>
+    </head>
+    <body>
+        <canvas id="myCanvas" width="578" height="500">
+        </canvas>
+    </body>
+</html>
